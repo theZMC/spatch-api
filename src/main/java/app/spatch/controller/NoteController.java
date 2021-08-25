@@ -30,8 +30,8 @@ public class NoteController {
   }
 
   @GET
-  @Path("/dispatch/{dispatchId}")
-  public List<Note> getNotesByDispatchId(@PathParam("dispatchId") Integer dispatchId){
+  @Path("/dispatch/{id}")
+  public List<Note> getNotesByDispatchId(@PathParam("id") Integer dispatchId){
     return service.getNotesByDispatchId(dispatchId);
   }
 

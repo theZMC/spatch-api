@@ -30,8 +30,8 @@ public class TripController {
   }
 
   @GET
-  @Path("/technician/{technicianId}")
-  public List<Trip> getTripsByTechnicianId(@PathParam("technicianId") Integer technicianId){
+  @Path("/technician/{id}")
+  public List<Trip> getTripsByTechnicianId(@PathParam("id") Integer technicianId){
     return service.getTripsByTechnicianId(technicianId);
   }
 
