@@ -2,13 +2,13 @@ package app.spatch.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 public class Note extends DBObject<Note>{
   private Integer id;
-  private LocalDateTime time;
-  private String message;
   private Integer dispatchId;
+  private Timestamp time;
+  private String message;
 
   public static final String BY_DISPATCH = "WHERE dispatchId = ?";
 
@@ -16,13 +16,13 @@ public class Note extends DBObject<Note>{
   public Note fromResultSet(ResultSet resultSet) throws SQLException {
     return new Note(
       resultSet.getInt("id"),
-      resultSet.getTimestamp("time").toLocalDateTime(),
+      resultSet.getTimestamp("time"),
       resultSet.getString("message"),
       resultSet.getInt("dispatchId")
     );
   }
 
-  public Note(Integer id, LocalDateTime time, String message, Integer dispatchId){
+  public Note(Integer id, Timestamp time, String message, Integer dispatchId){
     this.id = id;
     this.time = time;
     this.message = message;
@@ -35,10 +35,16 @@ public class Note extends DBObject<Note>{
   public void setId(Integer id) {
     this.id = id;
   }
-  public LocalDateTime getTime() {
+  public Integer getDispatchId() {
+    return dispatchId;
+  }
+  public void setDispatchId(Integer dispatchId) {
+    this.dispatchId = dispatchId;
+  }
+  public Timestamp getTime() {
     return time;
   }
-  public void setTime(LocalDateTime time) {
+  public void setTime(Timestamp time) {
     this.time = time;
   }
   public String getMessage() {
@@ -46,11 +52,5 @@ public class Note extends DBObject<Note>{
   }
   public void setMessage(String message) {
     this.message = message;
-  }
-  public Integer getDispatchId() {
-    return dispatchId;
-  }
-  public void setDispatchId(Integer dispatchId) {
-    this.dispatchId = dispatchId;
   }
 }
