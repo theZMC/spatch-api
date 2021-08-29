@@ -103,12 +103,12 @@ public class DAO<T extends DBObject<T>> {
     return selectFromSQL(query, params);
   }
 
-  public T insert(T dbObject){
+  public T insertRecord(T dbObject){
     this.setDBObject(dbObject);
-    return insert();
+    return insertRecord();
   }
 
-  public T insert(){
+  public T insertRecord(){
     T insertedRecord  = null;
     String query      = "INSERT INTO " + dbObject.getTableName() + " (";
     String values     = "";
@@ -149,12 +149,12 @@ public class DAO<T extends DBObject<T>> {
     return insertedRecord;
   }
 
-  public T update(T dbObject){
+  public T updateRecord(T dbObject){
     this.setDBObject(dbObject);
-    return update();
+    return updateRecord();
   }
 
-  public T update(){
+  public T updateRecord(){
     T record = selectById(dbObject.getId());
 
     if(record != null){
@@ -172,27 +172,27 @@ public class DAO<T extends DBObject<T>> {
       query = query.substring(0, query.length()-2);
       query += " WHERE id = ?";
 
-      SQL(query, params);
+      executeSQL(query, params);
     }
     return record;
   }
 
-  public T delete(T dbObject){
+  public T deleteRecord(T dbObject){
     this.dbObject = dbObject;
-    return delete();
+    return deleteRecord();
   }
 
-  public T delete(){
+  public T deleteRecord(){
     T record = selectById(dbObject.getId());
 
     if(record != null){
       String query = String.format("DELETE FROM %s WHERE id = ?", dbObject.getTableName());
-      SQL(query, record.getId());
+      executeSQL(query, record.getId());
     }
     return record;
   }
 
-  public T SQL(String query, Object...params){
+  public T executeSQL(String query, Object...params){
     T record = selectById(dbObject.getId());
 
     if(record != null){

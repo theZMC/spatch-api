@@ -17,14 +17,14 @@ public class TechnicianService {
   }
 
   public Technician createTechnician(Technician technician){
-    return dao.insert(technician);
+    return dao.insertRecord(technician);
   }
 
   public Technician updateTechnician(Technician technician){
-    return dao.update(technician);
+    return dao.updateRecord(technician);
   }
 
   public Technician deleteTechnician(Technician technician){
-    return dao.delete(technician);
+    return dao.deleteRecord(technician);
   }
 }

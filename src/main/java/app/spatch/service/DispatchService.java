@@ -34,14 +34,14 @@ public class DispatchService {
   }
 
   public Dispatch createDispatch(Dispatch dispatch){
-    return dao.insert(dispatch);
+    return dao.insertRecord(dispatch);
   }
 
   public Dispatch updateDispatch(Dispatch dispatch){
-    return dao.update(dispatch);
+    return dao.updateRecord(dispatch);
   }
 
   public Dispatch deleteDispatch(Dispatch dispatch){
-    return dao.delete(dispatch);
+    return dao.deleteRecord(dispatch);
   }
 }

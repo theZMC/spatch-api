@@ -21,14 +21,14 @@ public class LocationService {
   }
 
   public Location createLocation(Location location){
-    return dao.insert(location);
+    return dao.insertRecord(location);
   }
 
   public Location updateLocation(Location location){
-    return dao.update(location);
+    return dao.updateRecord(location);
   }
 
   public Location deleteLocation(Location location){
-    return dao.delete(location);
+    return dao.deleteRecord(location);
   }
 }

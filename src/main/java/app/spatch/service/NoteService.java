@@ -21,14 +21,14 @@ public class NoteService {
   }
 
   public Note createNote(Note note){
-    return dao.insert(note);
+    return dao.insertRecord(note);
   }
 
   public Note updateNote(Note note){
-    return dao.update(note);
+    return dao.updateRecord(note);
   }
 
   public Note deleteNote(Note note){
-    return dao.delete(note);
+    return dao.deleteRecord(note);
   }
 }

@@ -21,15 +21,15 @@ public class TripService {
   }
 
   public Trip createTrip(Trip trip){
-    return dao.insert(trip);
+    return dao.insertRecord(trip);
   }
 
   public Trip updateTrip(Trip trip){
-    return dao.update(trip);
+    return dao.updateRecord(trip);
   }
 
   public Trip deleteTrip(Trip trip){
-    return dao.delete(trip);
+    return dao.deleteRecord(trip);
   }
 
 }

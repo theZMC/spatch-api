@@ -17,14 +17,14 @@ public class ContactService {
   }
 
   public Contact createContact(Contact contact){
-    return dao.insert(contact);
+    return dao.insertRecord(contact);
   }
 
   public Contact updateContact(Contact contact){
-    return dao.update(contact);
+    return dao.updateRecord(contact);
   }
 
   public Contact deleteContact(Contact contact){
-    return dao.delete(contact);
+    return dao.deleteRecord(contact);
   }
 }
