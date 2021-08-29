@@ -2,7 +2,7 @@ package app.spatch.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 import app.spatch.model.annotations.Insertable;
 import app.spatch.model.annotations.Selectable;
@@ -11,9 +11,9 @@ public class Dispatch extends DBObject<Dispatch> {
   @Selectable private Integer id;
   @Selectable @Insertable private Integer locationId;
   @Selectable @Insertable private Integer tripId;
-  @Selectable @Insertable private LocalDateTime scheduledTime;
-  @Selectable @Insertable private LocalDateTime startTime;
-  @Selectable @Insertable private LocalDateTime endTime;
+  @Selectable @Insertable private Timestamp scheduledTime;
+  @Selectable @Insertable private Timestamp startTime;
+  @Selectable @Insertable private Timestamp endTime;
   @Selectable @Insertable private Integer estTimeOnSite;
   @Selectable @Insertable private Boolean isComplete;
   @Selectable @Insertable private Priority priority;
@@ -29,17 +29,17 @@ public class Dispatch extends DBObject<Dispatch> {
       resultSet.getInt("id"),
       resultSet.getInt("locationId"),
       resultSet.getInt("tripId"),
-      resultSet.getTimestamp("scheduledTime").toLocalDateTime(),
-      resultSet.getTimestamp("startTime").toLocalDateTime(),
-      resultSet.getTimestamp("endTime").toLocalDateTime(),
+      resultSet.getTimestamp("scheduledTime"),
+      resultSet.getTimestamp("startTime"),
+      resultSet.getTimestamp("endTime"),
       resultSet.getInt("estTimeOnSite"),
       resultSet.getBoolean("isComplete"),
       Priority.parse(resultSet.getString("priority"))
     );
   }
 
-  public Dispatch(Integer id, Integer locationId, Integer tripId, LocalDateTime scheduledTime, LocalDateTime startTime,
-    LocalDateTime endTime, Integer estTimeOnSite, Boolean isComplete, Priority priority){
+  public Dispatch(Integer id, Integer locationId, Integer tripId, Timestamp scheduledTime, Timestamp startTime,
+    Timestamp endTime, Integer estTimeOnSite, Boolean isComplete, Priority priority){
     this.id = id;
     this.locationId = locationId;
     this.tripId = tripId;
@@ -69,22 +69,22 @@ public class Dispatch extends DBObject<Dispatch> {
   public void setTripId(Integer tripId) {
     this.tripId = tripId;
   }
-  public LocalDateTime getScheduledTime() {
+  public Timestamp getScheduledTime() {
     return scheduledTime;
   }
-  public void setScheduledTime(LocalDateTime scheduledTime) {
+  public void setScheduledTime(Timestamp scheduledTime) {
     this.scheduledTime = scheduledTime;
   }
-  public LocalDateTime getStartTime() {
+  public Timestamp getStartTime() {
     return startTime;
   }
-  public void setStartTime(LocalDateTime startTime) {
+  public void setStartTime(Timestamp startTime) {
     this.startTime = startTime;
   }
-  public LocalDateTime getEndTime() {
+  public Timestamp getEndTime() {
     return endTime;
   }
-  public void setEndTime(LocalDateTime endTime) {
+  public void setEndTime(Timestamp endTime) {
     this.endTime = endTime;
   }
   public Integer getEstTimeOnSite() {
