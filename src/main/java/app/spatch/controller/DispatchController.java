@@ -26,7 +26,7 @@ public class DispatchController {
 
   @GET
   @Path("/{id}")
-  public Dispatch getDispatchById(@PathParam("id") Integer id){
+  public List<Dispatch> getDispatchById(@PathParam("id") Integer id){
     return service.getDispatchById(id);
   }
 
@@ -43,12 +43,15 @@ public class DispatchController {
   }
 
   @GET
+  @Path("/completed")
+  public List<Dispatch> getCompletedDispatches(){
+    return service.getDispatchesByCompletion(true);
+  }
+
+  @GET
   @Path("/completed/{isComplete}")
   public List<Dispatch> getCompletedDispatches(@PathParam("isComplete") Boolean isComplete){
-    if(isComplete != null){
-      return service.getDispatchesByCompletion(isComplete);
-    }
-    return service.getDispatchesByCompletion(true);
+    return service.getDispatchesByCompletion(isComplete);
   }
 
   @GET

@@ -8,7 +8,7 @@ import app.spatch.model.Note;
 public class NoteService {
   private DAO<Note> dao = new DAO<Note>(Note.class);
 
-  public Note getNoteById(Integer id){
+  public List<Note> getNoteById(Integer id){
     return dao.selectById(id);
   }
 

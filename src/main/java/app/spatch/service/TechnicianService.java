@@ -8,7 +8,7 @@ import app.spatch.model.Technician;
 public class TechnicianService {
   private DAO<Technician> dao = new DAO<Technician>(Technician.class);
 
-  public Technician getTechnicianById(Integer id){
+  public List<Technician> getTechnicianById(Integer id){
     return dao.selectById(id);
   }
 

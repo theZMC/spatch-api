@@ -8,7 +8,7 @@ import app.spatch.model.Trip;
 public class TripService {
   private DAO<Trip> dao = new DAO<Trip>(Trip.class);
 
-  public Trip getTripById(Integer id){
+  public List<Trip> getTripById(Integer id){
     return dao.selectById(id);
   }
 

@@ -17,8 +17,8 @@ public abstract class DBObject<T> {
     return this.id;
   }
 
-  public String getTableName(){
-    return this.getClass().getName().toLowerCase();
+  public String generateTableName(){
+    return this.getClass().getSimpleName().toLowerCase();
   }
 
   public abstract T fromResultSet(ResultSet resultSet) throws SQLException;

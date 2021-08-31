@@ -25,7 +25,7 @@ public class LocationController {
 
   @GET
   @Path("/{id}")
-  public Location getLocationById(@PathParam("id") Integer id){
+  public List<Location> getLocationById(@PathParam("id") Integer id){
     return service.getLocationById(id);
   }
 

@@ -10,7 +10,7 @@ public class Contact extends DBObject<Contact>{
   @Selectable private Integer id;
   @Selectable @Insertable private String firstName;
   @Selectable @Insertable private String lastName;
-  @Selectable @Insertable private Integer phone;
+  @Selectable @Insertable private Long phone;
   @Selectable @Insertable private String email;
 
   @Override
@@ -19,17 +19,20 @@ public class Contact extends DBObject<Contact>{
       resultSet.getInt("id"),
       resultSet.getString("firstName"),
       resultSet.getString("lastName"),
-      resultSet.getInt("phone"),
+      resultSet.getLong("phone"),
       resultSet.getString("email")
     );
   }
 
-  public Contact(Integer id, String firstName, String lastName, Integer phone, String email){
+  public Contact(Integer id, String firstName, String lastName, Long phone, String email){
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.phone = phone;
     this.email = email;
+  }
+
+  public Contact(){
   }
 
   public Integer getId() {
@@ -50,10 +53,10 @@ public class Contact extends DBObject<Contact>{
   public void setLastName(String lastName) {
     this.lastName = lastName;
   }
-  public Integer getPhone() {
+  public Long getPhone() {
     return phone;
   }
-  public void setPhone(Integer phone) {
+  public void setPhone(Long phone) {
     this.phone = phone;
   }
   public String getEmail() {

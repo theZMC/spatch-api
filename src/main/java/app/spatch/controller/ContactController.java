@@ -25,7 +25,7 @@ public class ContactController {
 
   @GET
   @Path("/{id}")
-  public Contact getContactById(@PathParam("id") Integer id){
+  public List<Contact> getContactById(@PathParam("id") Integer id){
     return service.getContactById(id);
   }
 

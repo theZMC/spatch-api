@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class MariaDBUtil {
   // Change this to match prod environment
-  private static String connectionUrl = "jdbc:mariadb://localhost:3306/spatch?user=root&password=password";
+  private static String connectionUrl = "jdbc:mariadb://mariadb:3306/spatch?user=root&password=password";
 
   public static Connection getConnection() {
     Connection connection = null;

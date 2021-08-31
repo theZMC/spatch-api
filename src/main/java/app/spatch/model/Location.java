@@ -34,6 +34,9 @@ public class Location extends DBObject<Location>{
     this.displayName = displayName;
   }
 
+  public Location(){
+  }
+
   public Integer getId() {
     return id;
   }

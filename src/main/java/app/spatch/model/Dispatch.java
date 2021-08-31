@@ -51,6 +51,9 @@ public class Dispatch extends DBObject<Dispatch> {
     this.priority = priority;
   }
 
+  public Dispatch(){
+  }
+
   public Integer getId() {
     return id;
   }

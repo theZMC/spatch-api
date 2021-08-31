@@ -25,7 +25,7 @@ public class TechnicianController {
 
   @GET
   @Path("/{id}")
-  public Technician getTechnicianById(@PathParam("id") Integer id){
+  public List<Technician> getTechnicianById(@PathParam("id") Integer id){
     return service.getTechnicianById(id);
   }
 

@@ -29,6 +29,9 @@ public class Trip extends DBObject<Trip>{
     this.technicianId = technicianId;
   }
 
+  public Trip(){
+  }
+
   public Integer getId() {
     return id;
   }

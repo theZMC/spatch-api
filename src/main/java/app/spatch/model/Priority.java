@@ -43,6 +43,6 @@ public enum Priority {
 
   @Override
   public String toString() {
-    return this.full.toUpperCase();
+    return this.full.toLowerCase();
   }
 }

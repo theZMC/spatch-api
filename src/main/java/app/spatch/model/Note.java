@@ -4,11 +4,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+import app.spatch.model.annotations.Insertable;
+import app.spatch.model.annotations.Selectable;
+
 public class Note extends DBObject<Note>{
-  private Integer id;
-  private Integer dispatchId;
-  private Timestamp time;
-  private String message;
+  @Selectable private Integer id;
+  @Selectable @Insertable private Integer dispatchId;
+  @Selectable @Insertable private Timestamp time;
+  @Selectable @Insertable private String message;
 
   public static final String BY_DISPATCH = "WHERE dispatchId = ?";
 
@@ -28,6 +31,16 @@ public class Note extends DBObject<Note>{
     this.message = message;
     this.dispatchId = dispatchId;
   }
+
+  public Note(){
+  }
+
+  // public Note(){
+  //   this.id = null;
+  //   this.time = null;
+  //   this.message = null;
+  //   this.dispatchId = null;
+  // }
 
   public Integer getId() {
     return id;

@@ -8,7 +8,7 @@ import app.spatch.model.Contact;
 public class ContactService {
   private DAO<Contact> dao = new DAO<Contact>(Contact.class);
 
-  public Contact getContactById(Integer id){
+  public List<Contact> getContactById(Integer id){
     return dao.selectById(id);
   }
 

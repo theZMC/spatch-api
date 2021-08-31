@@ -8,7 +8,7 @@ import app.spatch.model.Location;
 public class LocationService {
   private DAO<Location> dao = new DAO<Location>(Location.class);
 
-  public Location getLocationById(Integer id){
+  public List<Location> getLocationById(Integer id){
     return dao.selectById(id);
   }
 

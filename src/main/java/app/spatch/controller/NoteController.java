@@ -25,7 +25,7 @@ public class NoteController {
 
   @GET
   @Path("/{id}")
-  public Note getNoteById(@PathParam("id") Integer id){
+  public List<Note> getNoteById(@PathParam("id") Integer id){
     return service.getNoteById(id);
   }
 

@@ -25,7 +25,7 @@ public class TripController {
 
   @GET
   @Path("/{id}")
-  public Trip getTrip(@PathParam("id") Integer id){
+  public List<Trip> getTrip(@PathParam("id") Integer id){
     return service.getTripById(id);
   }
 

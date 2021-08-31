@@ -9,7 +9,7 @@ import app.spatch.model.Priority;
 public class DispatchService {
   private DAO<Dispatch> dao = new DAO<Dispatch>(Dispatch.class);
 
-  public Dispatch getDispatchById(Integer id){
+  public List<Dispatch> getDispatchById(Integer id){
     return dao.selectById(id);
   }
 
