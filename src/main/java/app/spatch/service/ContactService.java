@@ -24,7 +24,7 @@ public class ContactService {
     return dao.updateRecord(contact);
   }
 
-  public Contact deleteContact(Contact contact){
-    return dao.deleteRecord(contact);
+  public Contact deleteContact(Integer id){
+    return dao.deleteRecord(id);
   }
 }

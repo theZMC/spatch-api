@@ -5,6 +5,7 @@ import java.util.List;
 import app.spatch.model.Contact;
 import app.spatch.service.ContactService;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
@@ -39,5 +40,11 @@ public class ContactController {
   @Consumes(MediaType.APPLICATION_JSON)
   public Contact updateContact(Contact contact){
     return service.updateContact(contact);
+  }
+
+  @DELETE
+  @Path("/{id}")
+  public Contact deleteContact(@PathParam("id") Integer id){
+    return service.deleteContact(id);
   }
 }

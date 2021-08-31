@@ -138,7 +138,7 @@ public class DAO<T extends DBObject<T>> {
         insertedRecordId = resultSet.getInt("id");
       }
       List<T> records = selectById(insertedRecordId);
-      if(records != null){
+      if(!records.isEmpty()){
         insertedRecord = records.get(0);
       }
       stmt.close();
@@ -158,7 +158,7 @@ public class DAO<T extends DBObject<T>> {
     List<T> records = selectById(dbObject.getId());
     T updatedRecord = null;
 
-    if(records != null){
+    if(!records.isEmpty()){
       updatedRecord = records.get(0);
       String query = String.format("UPDATE %s SET ", dbObject.generateTableName());
       Map<String, Object> updateMap = getFieldsAndValues(Insertable.class);
@@ -179,16 +179,11 @@ public class DAO<T extends DBObject<T>> {
     return updatedRecord;
   }
 
-  public T deleteRecord(T dbObject){
-    this.dbObject = dbObject;
-    return deleteRecord();
-  }
-
-  public T deleteRecord(){
-    List<T> records = selectById(dbObject.getId());
+  public T deleteRecord(Integer id){
+    List<T> records = selectById(id);
     T deletedRecord = null;
 
-    if(records != null){
+    if(!records.isEmpty()){
       deletedRecord = records.get(0);
       String query = String.format("DELETE FROM %s WHERE id = ?", dbObject.generateTableName());
       executeSQL(query, deletedRecord.getId());
@@ -196,23 +191,16 @@ public class DAO<T extends DBObject<T>> {
     return deletedRecord;
   }
 
-  public T executeSQL(String query, Object...params){
-    List<T> records = selectById(dbObject.getId());
-    T modifiedRecord = null;
-
-    if(records != null){
-      modifiedRecord = records.get(0);
-      try {
-        Connection conn = MariaDBUtil.getConnection();
-        PreparedStatement stmt = prepareStatement(conn, query, false, params);
-        stmt.executeUpdate();
-        stmt.close();
-        conn.close();
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
+  public void executeSQL(String query, Object...params){
+    try {
+      Connection conn = MariaDBUtil.getConnection();
+      PreparedStatement stmt = prepareStatement(conn, query, false, params);
+      stmt.executeUpdate();
+      stmt.close();
+      conn.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
-    return modifiedRecord;
   }
 
   private String getSelectStatement(){

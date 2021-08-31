@@ -28,7 +28,7 @@ public class NoteService {
     return dao.updateRecord(note);
   }
 
-  public Note deleteNote(Note note){
-    return dao.deleteRecord(note);
+  public Note deleteNote(Integer id){
+    return dao.deleteRecord(id);
   }
 }

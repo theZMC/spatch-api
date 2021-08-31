@@ -24,7 +24,7 @@ public class TechnicianService {
     return dao.updateRecord(technician);
   }
 
-  public Technician deleteTechnician(Technician technician){
-    return dao.deleteRecord(technician);
+  public Technician deleteTechnician(Integer id){
+    return dao.deleteRecord(id);
   }
 }

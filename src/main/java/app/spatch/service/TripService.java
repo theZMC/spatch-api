@@ -28,8 +28,8 @@ public class TripService {
     return dao.updateRecord(trip);
   }
 
-  public Trip deleteTrip(Trip trip){
-    return dao.deleteRecord(trip);
+  public Trip deleteTrip(Integer id){
+    return dao.deleteRecord(id);
   }
 
 }

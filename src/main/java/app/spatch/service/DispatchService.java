@@ -41,7 +41,7 @@ public class DispatchService {
     return dao.updateRecord(dispatch);
   }
 
-  public Dispatch deleteDispatch(Dispatch dispatch){
-    return dao.deleteRecord(dispatch);
+  public Dispatch deleteDispatch(Integer id){
+    return dao.deleteRecord(id);
   }
 }

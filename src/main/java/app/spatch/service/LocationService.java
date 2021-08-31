@@ -28,7 +28,7 @@ public class LocationService {
     return dao.updateRecord(location);
   }
 
-  public Location deleteLocation(Location location){
-    return dao.deleteRecord(location);
+  public Location deleteLocation(Integer id){
+    return dao.deleteRecord(id);
   }
 }
