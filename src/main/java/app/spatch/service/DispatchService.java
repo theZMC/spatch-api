@@ -26,7 +26,7 @@ public class DispatchService {
   }
 
   public List<Dispatch> getDispatchesByPriority(Priority priority){
-    return dao.select(Dispatch.BY_PRIORITY, priority);
+    return dao.select(Dispatch.BY_PRIORITY, priority.toString());
   }
 
   public List<Dispatch> getDispatches(){
