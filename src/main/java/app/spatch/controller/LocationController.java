@@ -29,6 +29,12 @@ public class LocationController {
     return service.getLocationById(id);
   }
 
+  @GET
+  @Path("/contact/{id}")
+  public List<Location> getLocationsByPrimaryContactId(@PathParam("id") Integer id){
+    return service.getLocationsByPrimaryContactId(id);
+  }
+
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   public Location createLocation(Location location){
