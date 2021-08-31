@@ -88,13 +88,13 @@ public class DAO<T extends DBObject<T>> {
   }
 
 
-  public T selectById(Integer id){
+  public List<T> selectById(Integer id){
     List<T> records = new ArrayList<T>();
     String query    = getSelectStatement();
 
     query += " WHERE id = ?";
     records = selectFromSQL(query, id);
-    return records.get(0);
+    return records;
   }
 
   public List<T> select(String constraints, Object...params){
@@ -110,7 +110,7 @@ public class DAO<T extends DBObject<T>> {
 
   public T insertRecord(){
     T insertedRecord  = null;
-    String query      = "INSERT INTO " + dbObject.getTableName() + " (";
+    String query      = "INSERT INTO " + dbObject.generateTableName() + " (";
     String values     = "";
     Map<String, Object> fieldsAndValues = getFieldsAndValues(Insertable.class);
 
@@ -137,9 +137,9 @@ public class DAO<T extends DBObject<T>> {
       if(resultSet.next()){
         insertedRecordId = resultSet.getInt("id");
       }
-      T record = selectById(insertedRecordId);
-      if(record != null){
-        insertedRecord = record;
+      List<T> records = selectById(insertedRecordId);
+      if(records != null){
+        insertedRecord = records.get(0);
       }
       stmt.close();
       conn.close();
@@ -155,10 +155,12 @@ public class DAO<T extends DBObject<T>> {
   }
 
   public T updateRecord(){
-    T record = selectById(dbObject.getId());
+    List<T> records = selectById(dbObject.getId());
+    T updatedRecord = null;
 
-    if(record != null){
-      String query = String.format("UPDATE %s SET ", dbObject.getTableName());
+    if(records != null){
+      updatedRecord = records.get(0);
+      String query = String.format("UPDATE %s SET ", dbObject.generateTableName());
       Map<String, Object> updateMap = getFieldsAndValues(Insertable.class);
       Object[] params = new Object[1+updateMap.size()];
 
@@ -174,7 +176,7 @@ public class DAO<T extends DBObject<T>> {
 
       executeSQL(query, params);
     }
-    return record;
+    return updatedRecord;
   }
 
   public T deleteRecord(T dbObject){
@@ -183,19 +185,23 @@ public class DAO<T extends DBObject<T>> {
   }
 
   public T deleteRecord(){
-    T record = selectById(dbObject.getId());
+    List<T> records = selectById(dbObject.getId());
+    T deletedRecord = null;
 
-    if(record != null){
-      String query = String.format("DELETE FROM %s WHERE id = ?", dbObject.getTableName());
-      executeSQL(query, record.getId());
+    if(records != null){
+      deletedRecord = records.get(0);
+      String query = String.format("DELETE FROM %s WHERE id = ?", dbObject.generateTableName());
+      executeSQL(query, deletedRecord.getId());
     }
-    return record;
+    return deletedRecord;
   }
 
   public T executeSQL(String query, Object...params){
-    T record = selectById(dbObject.getId());
+    List<T> records = selectById(dbObject.getId());
+    T modifiedRecord = null;
 
-    if(record != null){
+    if(records != null){
+      modifiedRecord = records.get(0);
       try {
         Connection conn = MariaDBUtil.getConnection();
         PreparedStatement stmt = prepareStatement(conn, query, false, params);
@@ -206,13 +212,13 @@ public class DAO<T extends DBObject<T>> {
         e.printStackTrace();
       }
     }
-    return record;
+    return modifiedRecord;
   }
 
   private String getSelectStatement(){
     String  query = "SELECT " +
       getFields(Selectable.class).toString().replace("[", "").replace("]", "") +
-      " FROM " + dbObject.getTableName();
+      " FROM " + dbObject.generateTableName();
     return query;
   }
 
