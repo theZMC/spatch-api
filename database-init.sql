@@ -1,3 +1,5 @@
+DROP DATABASE `spatch` IF EXISTS;
+
 CREATE DATABASE `spatch`;
 
 USE `spatch`;
