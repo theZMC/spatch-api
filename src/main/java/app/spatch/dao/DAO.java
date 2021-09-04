@@ -112,7 +112,7 @@ public class DAO<T extends DBObject<T>> {
     T insertedRecord  = null;
     String query      = "INSERT INTO " + dbObject.generateTableName() + " (";
     String values     = "";
-    Map<String, Object> fieldsAndValues = getFieldsAndValues(Insertable.class);
+    Map<String, Object> fieldsAndValues = getFieldNamesAndValues(Insertable.class);
 
     Object[] params = new Object[fieldsAndValues.size()];
     int i = 0;
@@ -161,7 +161,7 @@ public class DAO<T extends DBObject<T>> {
     if(!records.isEmpty()){
       updatedRecord = records.get(0);
       String query = String.format("UPDATE %s SET ", dbObject.generateTableName());
-      Map<String, Object> updateMap = getFieldsAndValues(Insertable.class);
+      Map<String, Object> updateMap = getFieldNamesAndValues(Insertable.class);
       Object[] params = new Object[1+updateMap.size()];
 
       int i = 0;
@@ -205,34 +205,41 @@ public class DAO<T extends DBObject<T>> {
 
   private String getSelectStatement(){
     String  query = "SELECT " +
-      getFields(Selectable.class).toString().replace("[", "").replace("]", "") +
+      getFieldNames(Selectable.class).toString().replace("[", "").replace("]", "") +
       " FROM " + dbObject.generateTableName();
     return query;
   }
 
-  private List<String> getFields(Class<? extends Annotation> annotation){
-    List<String> fieldNames = new ArrayList<String>();
+  private List<Field> getFields(Class<? extends Annotation> annotation){
     List<Field> fields = Arrays.asList(dbObject.getClass().getDeclaredFields()).stream().filter(
       field -> field.isAnnotationPresent(annotation)
     ).collect(Collectors.toList());
+    return fields;
+  }
+
+  private List<String> getFieldNames(Class<? extends Annotation> annotation){
+    List<String> fieldNames = new ArrayList<String>();
+    List<Field> fields = getFields(annotation);
 
     fields.forEach(field -> fieldNames.add(field.getName()));
     return fieldNames;
   }
 
-  private Map<String, Object> getFieldsAndValues(Class<? extends Annotation> annotation){
+  private Map<String, Object> getFieldNamesAndValues(Class<? extends Annotation> annotation){
     Map<String, Object> fieldsAndValues = new HashMap<String, Object>();
-    List<Field> fields = Arrays.asList(dbObject.getClass().getDeclaredFields()).stream().filter(
-      field -> field.isAnnotationPresent(annotation)
-    ).collect(Collectors.toList());
+    List<Field> fields = getFields(annotation);
 
     fields.forEach(field -> {
       String name = field.getName();
       Object obj = null;
       try{
-        field.setAccessible(true);
-        obj = field.get(dbObject);
-        field.setAccessible(false);
+        if(field.isAccessible()){
+          obj = field.get(dbObject);
+        } else {
+          field.setAccessible(true);
+          obj = field.get(dbObject);
+          field.setAccessible(false);
+        }
       } catch (IllegalAccessException e){
         e.printStackTrace();
       }

@@ -2,6 +2,8 @@ package app.spatch.service;
 
 import java.util.List;
 
+import org.apache.commons.validator.routines.EmailValidator;
+
 import app.spatch.dao.DAO;
 import app.spatch.model.Contact;
 
@@ -26,5 +28,13 @@ public class ContactService {
 
   public Contact deleteContact(Integer id){
     return dao.deleteRecord(id);
+  }
+
+  public Boolean isValidContact(Contact contact){
+    Boolean isValid = true;
+    if(!EmailValidator.getInstance().isValid(contact.getEmail())){
+      isValid = false;
+    }
+    return isValid;
   }
 }
