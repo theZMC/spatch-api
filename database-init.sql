@@ -6,7 +6,7 @@ USE `spatch`;
 
 CREATE TABLE `spatch`.`dispatch` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `locationId` INT NOT NULL,
+  `placeId` INT NOT NULL,
   `tripId` INT NULL DEFAULT NULL,
   `scheduledTime` TIMESTAMP NULL DEFAULT NULL,
   `startTime` TIMESTAMP NULL DEFAULT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE `spatch`.`technician` (
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
 
-CREATE TABLE `spatch`.`location` (
+CREATE TABLE `spatch`.`place` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `primaryContactId` INT NOT NULL,
   `address` VARCHAR(256) NOT NULL,
@@ -69,7 +69,7 @@ ADD
 ALTER TABLE
   `dispatch`
 ADD
-  FOREIGN KEY (`locationId`) REFERENCES `location`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  FOREIGN KEY (`placeId`) REFERENCES `place`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 ALTER TABLE
   `trip`
@@ -77,7 +77,7 @@ ADD
   FOREIGN KEY (`technicianId`) REFERENCES `technician`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 ALTER TABLE
-  `location`
+  `place`
 ADD
   FOREIGN KEY (`primaryContactId`) REFERENCES `contact`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 

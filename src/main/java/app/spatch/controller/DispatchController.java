@@ -37,9 +37,9 @@ public class DispatchController {
   }
 
   @GET
-  @Path("/location/{id}")
-  public List<Dispatch> getDispatchesByLocationId(@PathParam("id") Integer locationId){
-    return service.getDispatchesByLocationId(locationId);
+  @Path("/place/{id}")
+  public List<Dispatch> getDispatchesByPlaceId(@PathParam("id") Integer placeId){
+    return service.getDispatchesByPlaceId(placeId);
   }
 
   @GET

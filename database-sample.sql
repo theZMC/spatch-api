@@ -52,7 +52,7 @@ VALUES
   );
 
 INSERT INTO
-  `location` (
+  `place` (
     `id`,
     `primaryContactId`,
     `address`,
@@ -69,7 +69,7 @@ VALUES
   );
 
 INSERT INTO
-  `location` (
+  `place` (
     `id`,
     `primaryContactId`,
     `address`,
@@ -88,7 +88,7 @@ VALUES
 INSERT INTO
   `dispatch` (
     `id`,
-    `locationId`,
+    `placeId`,
     `tripId`,
     `scheduledTime`,
     `startTime`,

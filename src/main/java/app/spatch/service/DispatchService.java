@@ -13,8 +13,8 @@ public class DispatchService {
     return dao.selectById(id);
   }
 
-  public List<Dispatch> getDispatchesByLocationId(Integer locationId){
-    return dao.select(Dispatch.BY_LOCATION, locationId);
+  public List<Dispatch> getDispatchesByPlaceId(Integer placeId){
+    return dao.select(Dispatch.BY_PLACE, placeId);
   }
 
   public List<Dispatch> getDispatchesByTripId(Integer tripId){

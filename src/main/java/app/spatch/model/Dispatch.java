@@ -9,7 +9,7 @@ import app.spatch.model.annotations.Selectable;
 
 public class Dispatch extends DBObject<Dispatch> {
   @Selectable private Integer id;
-  @Selectable @Insertable private Integer locationId;
+  @Selectable @Insertable private Integer placeId;
   @Selectable @Insertable private Integer tripId;
   @Selectable @Insertable private Timestamp scheduledTime;
   @Selectable @Insertable private Timestamp startTime;
@@ -18,7 +18,7 @@ public class Dispatch extends DBObject<Dispatch> {
   @Selectable @Insertable private Boolean isComplete;
   @Selectable @Insertable private Priority priority;
 
-  public final static String BY_LOCATION = "WHERE locationId = ?";
+  public final static String BY_PLACE = "WHERE placeId = ?";
   public final static String BY_TRIP = "WHERE tripId = ?";
   public final static String BY_COMPLETION = "WHERE isComplete = ?";
   public final static String BY_PRIORITY = "WHERE priority = ?";
@@ -27,7 +27,7 @@ public class Dispatch extends DBObject<Dispatch> {
   public Dispatch fromResultSet(ResultSet resultSet) throws SQLException {
     return new Dispatch(
       resultSet.getInt("id"),
-      resultSet.getInt("locationId"),
+      resultSet.getInt("placeId"),
       resultSet.getInt("tripId"),
       resultSet.getTimestamp("scheduledTime"),
       resultSet.getTimestamp("startTime"),
@@ -38,10 +38,10 @@ public class Dispatch extends DBObject<Dispatch> {
     );
   }
 
-  public Dispatch(Integer id, Integer locationId, Integer tripId, Timestamp scheduledTime, Timestamp startTime,
+  public Dispatch(Integer id, Integer placeId, Integer tripId, Timestamp scheduledTime, Timestamp startTime,
     Timestamp endTime, Integer estTimeOnSite, Boolean isComplete, Priority priority){
     this.id = id;
-    this.locationId = locationId;
+    this.placeId = placeId;
     this.tripId = tripId;
     this.scheduledTime = scheduledTime;
     this.startTime = startTime;
@@ -60,12 +60,16 @@ public class Dispatch extends DBObject<Dispatch> {
   public void setId(Integer id) {
     this.id = id;
   }
-  public Integer getLocationId() {
-    return locationId;
+
+  public Integer getPlaceId() {
+    return placeId;
   }
-  public void setLocationId(Integer locationId) {
-    this.locationId = locationId;
+
+  public void setPlaceId(
+      Integer placeId) {
+    this.placeId = placeId;
   }
+
   public Integer getTripId() {
     return tripId;
   }

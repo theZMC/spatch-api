@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import app.spatch.model.annotations.Insertable;
 import app.spatch.model.annotations.Selectable;
 
-public class Location extends DBObject<Location>{
+public class Place extends DBObject<Place>{
   @Selectable private Integer id;
   @Selectable @Insertable private Integer primaryContactId;
   @Selectable @Insertable private String address;
@@ -16,8 +16,8 @@ public class Location extends DBObject<Location>{
   public static final String BY_CONTACT = "WHERE primaryContactId = ?";
 
   @Override
-  public Location fromResultSet(ResultSet resultSet) throws SQLException {
-    return new Location(
+  public Place fromResultSet(ResultSet resultSet) throws SQLException {
+    return new Place(
       resultSet.getInt("id"),
       resultSet.getInt("primaryContactId"),
       resultSet.getString("address"),
@@ -26,7 +26,7 @@ public class Location extends DBObject<Location>{
     );
   }
 
-  public Location(Integer id, Integer primaryContactId, String address, String gPlaceId, String displayName){
+  public Place(Integer id, Integer primaryContactId, String address, String gPlaceId, String displayName){
     this.id = id;
     this.primaryContactId = primaryContactId;
     this.address = address;
@@ -34,7 +34,7 @@ public class Location extends DBObject<Location>{
     this.displayName = displayName;
   }
 
-  public Location(){
+  public Place(){
   }
 
   public Integer getId() {
