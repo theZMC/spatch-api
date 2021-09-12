@@ -1,5 +1,6 @@
 package app.spatch.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import app.spatch.model.Place;
@@ -12,38 +13,54 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 @Path("/places")
 @Produces(MediaType.APPLICATION_JSON)
 public class PlaceController {
   private PlaceService service = new PlaceService();
 
+  private Response buildResponse(List<Place> places){
+    Response response = Response
+    .status(200)
+    .entity(places)
+    .header("Access-Control-Allow-Origin", "*")
+    .build();
+
+    return response;
+  }
+  private Response buildResponse(Place place){
+    List<Place> places = new ArrayList<Place>();
+    places.add(place);
+    return buildResponse(places);
+  }
+
   @GET
-  public List<Place> getPlaces(){
-    return service.getPlaces();
+  public Response getPlaces(){
+    return buildResponse(service.getPlaces());
   }
 
   @GET
   @Path("/{id}")
-  public List<Place> getPlaceById(@PathParam("id") Integer id){
-    return service.getPlaceById(id);
+  public Response getPlaceById(@PathParam("id") Integer id){
+    return buildResponse(service.getPlaceById(id));
   }
 
   @GET
   @Path("/contact/{id}")
-  public List<Place> getPlacesByPrimaryContactId(@PathParam("id") Integer id){
-    return service.getPlacesByPrimaryContactId(id);
+  public Response getPlacesByPrimaryContactId(@PathParam("id") Integer id){
+    return buildResponse(service.getPlacesByPrimaryContactId(id));
   }
 
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
-  public Place createPlace(Place place){
-    return service.createPlace(place);
+  public Response createPlace(Place place){
+    return buildResponse(service.createPlace(place));
   }
 
   @PUT
   @Consumes(MediaType.APPLICATION_JSON)
-  public Place updatePlace(Place place){
-    return service.updatePlace(place);
+  public Response updatePlace(Place place){
+    return buildResponse(service.updatePlace(place));
   }
 }
