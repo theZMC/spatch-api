@@ -52,6 +52,12 @@ public class TripController {
     return buildResponse(service.getTripsByTechnicianId(technicianId));
   }
 
+  @GET
+  @Path("/date/{date}")
+  public Response getTripsByDate(@PathParam("date") String date){
+    return buildResponse(service.getTripsByDate(date));
+  }
+
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   public Response createTrip(Trip trip){

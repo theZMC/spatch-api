@@ -32,4 +32,8 @@ public class TripService {
     return dao.deleteRecord(id);
   }
 
+  public List<Trip> getTripsByDate(String date) {
+    return dao.select(Trip.BY_DATE, date);
+  }
+
 }
