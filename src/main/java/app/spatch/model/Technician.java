@@ -12,6 +12,7 @@ public class Technician extends DBObject<Technician>{
   @Selectable @Insertable private String lastName;
   @Selectable @Insertable private String avatar;
   @Selectable @Insertable private Long phone;
+  @Selectable @Insertable private Integer homePlaceId;
   @Selectable @Insertable private String email;
 
   @Override
@@ -22,16 +23,18 @@ public class Technician extends DBObject<Technician>{
       resultSet.getString("lastName"),
       resultSet.getString("avatar"),
       resultSet.getLong("phone"),
+      resultSet.getInt("homePlaceId"),
       resultSet.getString("email")
     );
   }
 
-  public Technician(Integer id, String firstName, String lastName, String avatar, Long phone, String email){
+  public Technician(Integer id, String firstName, String lastName, String avatar, Long phone, Integer homePlaceId, String email){
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.avatar = avatar;
     this.phone = phone;
+    this.homePlaceId = homePlaceId;
     this.email = email;
   }
 
@@ -67,6 +70,12 @@ public class Technician extends DBObject<Technician>{
   }
   public void setPhone(Long phone) {
     this.phone = phone;
+  }
+  public Integer getHomePlaceId() {
+    return homePlaceId;
+  }
+  public void setHomePlaceId(Integer homePlaceId) {
+    this.homePlaceId = homePlaceId;
   }
   public String getEmail() {
     return email;
