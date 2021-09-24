@@ -2,17 +2,16 @@ package app.spatch.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.time.LocalDate;
+import java.sql.Timestamp;
 
 import app.spatch.model.annotations.Insertable;
 import app.spatch.model.annotations.Selectable;
 
 public class Trip extends DBObject<Trip>{
   @Selectable private Integer id;
-  @Selectable @Insertable private LocalDate date;
+  @Selectable @Insertable private Timestamp date;
   @Selectable @Insertable private Integer technicianId;
-  @Selectable @Insertable private Time startTime;
+  @Selectable @Insertable private Timestamp startTime;
 
   public static final String BY_TECHNICIAN = "WHERE technicianId = ?";
   public static final String BY_DATE = "WHERE date = ?";
@@ -21,13 +20,13 @@ public class Trip extends DBObject<Trip>{
   public Trip fromResultSet(ResultSet resultSet) throws SQLException {
     return new Trip(
       resultSet.getInt("id"),
-      resultSet.getDate("date").toLocalDate(),
-      resultSet.getTime("startTime"),
+      resultSet.getTimestamp("date"),
+      resultSet.getTimestamp("startTime"),
       resultSet.getInt("technicianId")
     );
   }
 
-  public Trip(Integer id, LocalDate date, Time startTime, Integer technicianId){
+  public Trip(Integer id, Timestamp date, Timestamp startTime, Integer technicianId){
     this.id = id;
     this.date = date;
     this.startTime = startTime;
@@ -43,16 +42,16 @@ public class Trip extends DBObject<Trip>{
   public void setId(Integer id) {
     this.id = id;
   }
-  public LocalDate getDate() {
+  public Timestamp getDate() {
     return date;
   }
-  public void setDate(LocalDate date) {
+  public void setDate(Timestamp date) {
     this.date = date;
   }
-  public Time getStartTime() {
+  public Timestamp getStartTime() {
     return startTime;
   }
-  public void setStartTime(Time startTime) {
+  public void setStartTime(Timestamp startTime) {
     this.startTime = startTime;
   }
   public Integer getTechnicianId() {
