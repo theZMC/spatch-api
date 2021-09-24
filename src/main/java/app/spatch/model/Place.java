@@ -10,6 +10,9 @@ public class Place extends DBObject<Place>{
   @Selectable private Integer id;
   @Selectable @Insertable private Integer primaryContactId;
   @Selectable @Insertable private String address;
+  @Selectable @Insertable private String city;
+  @Selectable @Insertable private String state;
+  @Selectable @Insertable private String zipcode;
   @Selectable @Insertable private String gPlaceId;
   @Selectable @Insertable private String displayName;
 
@@ -21,15 +24,21 @@ public class Place extends DBObject<Place>{
       resultSet.getInt("id"),
       resultSet.getInt("primaryContactId"),
       resultSet.getString("address"),
+      resultSet.getString("city"),
+      resultSet.getString("state"),
+      resultSet.getString("zipcode"),
       resultSet.getString("gPlaceId"),
       resultSet.getString("displayName")
     );
   }
 
-  public Place(Integer id, Integer primaryContactId, String address, String gPlaceId, String displayName){
+  public Place(Integer id, Integer primaryContactId, String address, String city, String state, String zipcode, String gPlaceId, String displayName){
     this.id = id;
     this.primaryContactId = primaryContactId;
     this.address = address;
+    this.city = city;
+    this.state = state;
+    this.zipcode = zipcode;
     this.gPlaceId = gPlaceId;
     this.displayName = displayName;
   }
@@ -54,6 +63,24 @@ public class Place extends DBObject<Place>{
   }
   public void setAddress(String address) {
     this.address = address;
+  }
+  public String getCity() {
+    return city;
+  }
+  public void setCity(String city) {
+    this.city = city;
+  }
+  public String getState() {
+    return state;
+  }
+  public void setState(String state) {
+    this.state = state;
+  }
+  public String getZipcode() {
+    return zipcode;
+  }
+  public void setZipcode(String zipcode) {
+    this.zipcode = zipcode;
   }
   public String getgPlaceId() {
     return gPlaceId;
