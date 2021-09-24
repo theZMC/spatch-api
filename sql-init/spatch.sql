@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mariadb
--- Generation Time: Sep 18, 2021 at 01:02 AM
--- Server version: 10.5.10-MariaDB-1:10.5.10+maria~focal
+-- Generation Time: Sep 24, 2021 at 05:56 PM
+-- Server version: 10.6.4-MariaDB-1:10.6.4+maria~focal
 -- PHP Version: 7.4.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -96,8 +96,11 @@ INSERT INTO `note` (`id`, `dispatchId`, `time`, `message`) VALUES
 
 CREATE TABLE `place` (
   `id` int(11) NOT NULL,
-  `primaryContactId` int(11) NOT NULL,
+  `primaryContactId` int(11) DEFAULT NULL,
   `address` varchar(256) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `state` varchar(2) NOT NULL,
+  `zipcode` varchar(12) NOT NULL,
   `gPlaceId` varchar(64) DEFAULT NULL,
   `displayName` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -106,9 +109,10 @@ CREATE TABLE `place` (
 -- Dumping data for table `place`
 --
 
-INSERT INTO `place` (`id`, `primaryContactId`, `address`, `gPlaceId`, `displayName`) VALUES
-(1, 2, '6706 Cantrell Rd, Little Rock, AR 72207, USA', 'ChIJC4aMj5mj0ocR6Fk2TgVdIsI', 'Damgoode Pies'),
-(2, 1, '7410 Cantrell Rd, Little Rock, AR 72207, USA', 'ChIJ096Y2Oqj0ocRKekYd-GTGAY', 'Hubcap Burger Company');
+INSERT INTO `place` (`id`, `primaryContactId`, `address`, `city`, `state`, `zipcode`, `gPlaceId`, `displayName`) VALUES
+(1, 2, '6706 Cantrell Rd', 'Little Rock', 'AR', '72207', 'ChIJC4aMj5mj0ocR6Fk2TgVdIsI', 'Damgoode Pies'),
+(2, 1, '7410 Cantrell Rd', 'Little Rock', 'AR', '72207', 'ChIJ096Y2Oqj0ocRKekYd-GTGAY', 'Hubcap Burger Company'),
+(3, NULL, '6 Oriole Cir', 'Little Rock', 'AR', '72205', 'ChIJ9y2Eqnmk0ocR0mCzfQ3ACio', '6 Oriole Cir');
 
 -- --------------------------------------------------------
 
@@ -122,6 +126,7 @@ CREATE TABLE `technician` (
   `lastName` varchar(128) NOT NULL,
   `avatar` varchar(255) DEFAULT NULL,
   `phone` bigint(20) NOT NULL,
+  `homePlaceId` int(11) NOT NULL,
   `email` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -129,9 +134,9 @@ CREATE TABLE `technician` (
 -- Dumping data for table `technician`
 --
 
-INSERT INTO `technician` (`id`, `firstName`, `lastName`, `avatar`, `phone`, `email`) VALUES
-(1, 'Hawkeye', 'Parrce', '86b51805-5fa8-4196-8c66-0f020288ad1d.jpg', 5015551234, 'hawkeye@spatch.app'),
-(2, 'BJ', 'Hunnicutt', '8fee065a-f033-4d79-a0cc-a304afc9f237.jpg', 5015552468, 'bjhun@spatch.app');
+INSERT INTO `technician` (`id`, `firstName`, `lastName`, `avatar`, `phone`, `homePlaceId`, `email`) VALUES
+(1, 'Hawkeye', 'Parrce', '86b51805-5fa8-4196-8c66-0f020288ad1d.jpg', 5015551234, 3, 'hawkeye@spatch.app'),
+(2, 'BJ', 'Hunnicutt', '8fee065a-f033-4d79-a0cc-a304afc9f237.jpg', 5015552468, 3, 'bjhun@spatch.app');
 
 -- --------------------------------------------------------
 
@@ -142,7 +147,7 @@ INSERT INTO `technician` (`id`, `firstName`, `lastName`, `avatar`, `phone`, `ema
 CREATE TABLE `trip` (
   `id` int(11) NOT NULL,
   `date` date NOT NULL,
-  `startTime` time DEFAULT NULL,
+  `startTime` timestamp NULL DEFAULT NULL,
   `technicianId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -151,8 +156,8 @@ CREATE TABLE `trip` (
 --
 
 INSERT INTO `trip` (`id`, `date`, `startTime`, `technicianId`) VALUES
-(1, '2022-02-17', '09:00:00', 1),
-(2, '2022-02-14', '08:45:00', 2);
+(1, '2022-02-17', '2021-09-24 09:00:00', 1),
+(2, '2022-02-14', '2021-09-24 08:45:00', 2);
 
 --
 -- Indexes for dumped tables
@@ -193,7 +198,8 @@ ALTER TABLE `place`
 -- Indexes for table `technician`
 --
 ALTER TABLE `technician`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `homePlaceId` (`homePlaceId`);
 
 --
 -- Indexes for table `trip`
@@ -229,7 +235,7 @@ ALTER TABLE `note`
 -- AUTO_INCREMENT for table `place`
 --
 ALTER TABLE `place`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `technician`
@@ -265,6 +271,12 @@ ALTER TABLE `note`
 --
 ALTER TABLE `place`
   ADD CONSTRAINT `place_ibfk_1` FOREIGN KEY (`primaryContactId`) REFERENCES `contact` (`id`);
+
+--
+-- Constraints for table `technician`
+--
+ALTER TABLE `technician`
+  ADD CONSTRAINT `technician_ibfk_1` FOREIGN KEY (`homePlaceId`) REFERENCES `place` (`id`);
 
 --
 -- Constraints for table `trip`
