@@ -1,6 +1,5 @@
 package app.spatch.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import app.spatch.model.Dispatch;
@@ -14,84 +13,68 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 
 @Path("/dispatches")
 @Produces(MediaType.APPLICATION_JSON)
 public class DispatchController {
   private DispatchService service = new DispatchService();
 
-  private Response buildResponse(List<Dispatch> dispatches){
-    Response response = Response
-    .status(200)
-    .entity(dispatches)
-    .header("Access-Control-Allow-Origin", "*")
-    .build();
-
-    return response;
-  }
-  private Response buildResponse(Dispatch dispatch){
-    List<Dispatch> dispatches = new ArrayList<Dispatch>();
-    dispatches.add(dispatch);
-    return buildResponse(dispatches);
-  }
-
   @GET
-  public Response getDispatches(){
-    return buildResponse(service.getDispatches());
+  public List<Dispatch> getDispatches(){
+    return service.getDispatches();
   }
 
   @GET
   @Path("/{id}")
-  public Response getDispatchById(@PathParam("id") Integer id){
-    return buildResponse(service.getDispatchById(id));
+  public List<Dispatch> getDispatchById(@PathParam("id") Integer id){
+    return service.getDispatchById(id);
   }
 
   @GET
   @Path("/trip/{id}")
-  public Response getDispatchesByTripId(@PathParam("id") Integer dispatchId){
-    return buildResponse(service.getDispatchesByTripId(dispatchId));
+  public List<Dispatch> getDispatchesByTripId(@PathParam("id") Integer dispatchId){
+    return service.getDispatchesByTripId(dispatchId);
   }
 
   @GET
   @Path("/place/{id}")
-  public Response getDispatchesByPlaceId(@PathParam("id") Integer placeId){
-    return buildResponse(service.getDispatchesByPlaceId(placeId));
+  public List<Dispatch> getDispatchesByPlaceId(@PathParam("id") Integer placeId){
+    return service.getDispatchesByPlaceId(placeId);
   }
 
   @GET
   @Path("/completed")
-  public Response getCompletedDispatches(){
-    return buildResponse(service.getDispatchesByCompletion(true));
+  public List<Dispatch> getCompletedDispatches(){
+    return service.getDispatchesByCompletion(true);
   }
 
   @GET
   @Path("/completed/{isComplete}")
-  public Response getCompletedDispatches(@PathParam("isComplete") Boolean isComplete){
-    return buildResponse(service.getDispatchesByCompletion(isComplete));
+  public List<Dispatch> getCompletedDispatches(@PathParam("isComplete") Boolean isComplete){
+    return service.getDispatchesByCompletion(isComplete);
   }
 
   @GET
   @Path("/incomplete")
-  public Response getIncompleteDispatches(){
-    return buildResponse(service.getDispatchesByCompletion(false));
+  public List<Dispatch> getIncompleteDispatches(){
+    return service.getDispatchesByCompletion(false);
   }
 
   @GET
   @Path("/priority/{priority}")
-  public Response getDispatchesByPriority(@PathParam("priority") String priority){
-    return buildResponse(service.getDispatchesByPriority(Priority.parse(priority)));
+  public List<Dispatch> getDispatchesByPriority(@PathParam("priority") String priority){
+    return service.getDispatchesByPriority(Priority.parse(priority));
   }
 
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
-  public Response createDispatch(Dispatch dispatch){
-    return buildResponse(service.createDispatch(dispatch));
+  public Dispatch createDispatch(Dispatch dispatch){
+    return service.createDispatch(dispatch);
   }
 
   @PUT
   @Consumes(MediaType.APPLICATION_JSON)
-  public Response updateDispatch(Dispatch dispatch){
-    return buildResponse(service.updateDispatch(dispatch));
+  public Dispatch updateDispatch(Dispatch dispatch){
+    return service.updateDispatch(dispatch);
   }
 }

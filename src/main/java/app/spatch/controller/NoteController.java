@@ -1,6 +1,5 @@
 package app.spatch.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import app.spatch.model.Note;
@@ -13,54 +12,38 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 
 @Path("/notes")
 @Produces(MediaType.APPLICATION_JSON)
 public class NoteController {
   private NoteService service = new NoteService();
 
-  private Response buildResponse(List<Note> notes){
-    Response response = Response
-    .status(200)
-    .entity(notes)
-    .header("Access-Control-Allow-Origin", "*")
-    .build();
-
-    return response;
-  }
-  private Response buildResponse(Note note){
-    List<Note> notes = new ArrayList<Note>();
-    notes.add(note);
-    return buildResponse(notes);
-  }
-
   @GET
-  public Response getNotes(){
-    return buildResponse(service.getNotes());
+  public List<Note> getNotes(){
+    return service.getNotes();
   }
 
   @GET
   @Path("/{id}")
-  public Response getNoteById(@PathParam("id") Integer id){
-    return buildResponse(service.getNoteById(id));
+  public List<Note> getNoteById(@PathParam("id") Integer id){
+    return service.getNoteById(id);
   }
 
   @GET
   @Path("/dispatch/{id}")
-  public Response getNotesByDispatchId(@PathParam("id") Integer dispatchId){
-    return buildResponse(service.getNotesByDispatchId(dispatchId));
+  public List<Note> getNotesByDispatchId(@PathParam("id") Integer dispatchId){
+    return service.getNotesByDispatchId(dispatchId);
   }
 
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
-  public Response createNote(Note note){
-    return buildResponse(service.createNote(note));
+  public Note createNote(Note note){
+    return service.createNote(note);
   }
 
   @PUT
   @Consumes(MediaType.APPLICATION_JSON)
-  public Response updateNote(Note note){
-    return buildResponse(service.updateNote(note));
+  public Note updateNote(Note note){
+    return service.updateNote(note);
   }
 }
