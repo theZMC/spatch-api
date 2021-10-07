@@ -1,5 +1,4 @@
-## This is for development ONLY. DO NOT USE THIS IN PRODUCTION!
-
+## For development ONLY. DO NOT USE THIS IN PRODUCTION!
 version: '3'
 services:
   mariadb:
