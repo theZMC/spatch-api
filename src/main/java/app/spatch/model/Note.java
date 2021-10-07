@@ -35,13 +35,6 @@ public class Note extends DBObject<Note>{
   public Note(){
   }
 
-  // public Note(){
-  //   this.id = null;
-  //   this.time = null;
-  //   this.message = null;
-  //   this.dispatchId = null;
-  // }
-
   public Integer getId() {
     return id;
   }
