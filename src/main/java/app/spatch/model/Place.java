@@ -17,6 +17,7 @@ public class Place extends DBObject<Place>{
   @Selectable @Insertable private String displayName;
 
   public static final String BY_CONTACT = "WHERE primaryContactId = ?";
+  public static final String BY_GPLACEID = "WHERE gPlaceId = ?";
 
   @Override
   public Place fromResultSet(ResultSet resultSet) throws SQLException {

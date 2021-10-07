@@ -21,7 +21,12 @@ public class PlaceService {
   }
 
   public Place createPlace(Place place){
-    return dao.insertRecord(place);
+    List<Place> existingPlaces = dao.select(Place.BY_GPLACEID, place.getgPlaceId());
+    if(existingPlaces.size() > 0){
+      return existingPlaces.get(0);
+    } else {
+      return dao.insertRecord(place);
+    }
   }
 
   public Place updatePlace(Place place){
