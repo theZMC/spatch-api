@@ -61,6 +61,12 @@ public class DispatchController {
   }
 
   @GET
+  @Path("/unassigned")
+  public List<Dispatch> getUnassignedDispatches(){
+    return service.getUnassignedDispatches();
+  }
+
+  @GET
   @Path("/priority/{priority}")
   public List<Dispatch> getDispatchesByPriority(@PathParam("priority") String priority){
     return service.getDispatchesByPriority(Priority.parse(priority));
