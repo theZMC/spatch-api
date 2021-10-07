@@ -29,6 +29,10 @@ public class DispatchService {
     return dao.select(Dispatch.BY_PRIORITY, priority.toString());
   }
 
+  public List<Dispatch> getUnassignedDispatches(){
+    return dao.select(Dispatch.UNASSIGNED);
+  }
+
   public List<Dispatch> getDispatches(){
     return dao.selectAll();
   }

@@ -2,7 +2,6 @@ package app.spatch.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 
 import app.spatch.model.annotations.Insertable;
 import app.spatch.model.annotations.Selectable;
@@ -11,9 +10,9 @@ public class Dispatch extends DBObject<Dispatch> {
   @Selectable private Integer id;
   @Selectable @Insertable private Integer placeId;
   @Selectable @Insertable private Integer tripId;
-  @Selectable @Insertable private Timestamp scheduledTime;
-  @Selectable @Insertable private Timestamp startTime;
-  @Selectable @Insertable private Timestamp endTime;
+  @Selectable @Insertable private Long scheduledTime;
+  @Selectable @Insertable private Long startTime;
+  @Selectable @Insertable private Long endTime;
   @Selectable @Insertable private Integer estTimeOnSite;
   @Selectable @Insertable private Boolean isComplete;
   @Selectable @Insertable private Priority priority;
@@ -22,6 +21,7 @@ public class Dispatch extends DBObject<Dispatch> {
   public final static String BY_TRIP = "WHERE tripId = ?";
   public final static String BY_COMPLETION = "WHERE isComplete = ?";
   public final static String BY_PRIORITY = "WHERE priority = ?";
+  public final static String UNASSIGNED = "WHERE tripId IS NULL";
 
   @Override
   public Dispatch fromResultSet(ResultSet resultSet) throws SQLException {
@@ -29,17 +29,17 @@ public class Dispatch extends DBObject<Dispatch> {
       resultSet.getInt("id"),
       resultSet.getInt("placeId"),
       resultSet.getInt("tripId"),
-      resultSet.getTimestamp("scheduledTime"),
-      resultSet.getTimestamp("startTime"),
-      resultSet.getTimestamp("endTime"),
+      resultSet.getLong("scheduledTime"),
+      resultSet.getLong("startTime"),
+      resultSet.getLong("endTime"),
       resultSet.getInt("estTimeOnSite"),
       resultSet.getBoolean("isComplete"),
       Priority.parse(resultSet.getString("priority"))
     );
   }
 
-  public Dispatch(Integer id, Integer placeId, Integer tripId, Timestamp scheduledTime, Timestamp startTime,
-    Timestamp endTime, Integer estTimeOnSite, Boolean isComplete, Priority priority){
+  public Dispatch(Integer id, Integer placeId, Integer tripId, Long scheduledTime, Long startTime,
+    Long endTime, Integer estTimeOnSite, Boolean isComplete, Priority priority){
     this.id = id;
     this.placeId = placeId;
     this.tripId = tripId;
@@ -53,45 +53,41 @@ public class Dispatch extends DBObject<Dispatch> {
 
   public Dispatch(){
   }
-
   public Integer getId() {
     return id;
   }
   public void setId(Integer id) {
     this.id = id;
   }
-
   public Integer getPlaceId() {
     return placeId;
   }
-
   public void setPlaceId(
       Integer placeId) {
     this.placeId = placeId;
   }
-
   public Integer getTripId() {
     return tripId;
   }
   public void setTripId(Integer tripId) {
     this.tripId = tripId;
   }
-  public Timestamp getScheduledTime() {
+  public Long getScheduledTime() {
     return scheduledTime;
   }
-  public void setScheduledTime(Timestamp scheduledTime) {
+  public void setScheduledTime(Long scheduledTime) {
     this.scheduledTime = scheduledTime;
   }
-  public Timestamp getStartTime() {
+  public Long getStartTime() {
     return startTime;
   }
-  public void setStartTime(Timestamp startTime) {
+  public void setStartTime(Long startTime) {
     this.startTime = startTime;
   }
-  public Timestamp getEndTime() {
+  public Long getEndTime() {
     return endTime;
   }
-  public void setEndTime(Timestamp endTime) {
+  public void setEndTime(Long endTime) {
     this.endTime = endTime;
   }
   public Integer getEstTimeOnSite() {
@@ -111,5 +107,8 @@ public class Dispatch extends DBObject<Dispatch> {
   }
   public void setPriority(Priority priority) {
     this.priority = priority;
+  }
+  public void setPriority(String priority) {
+    this.priority = Priority.parse(priority);
   }
 }
