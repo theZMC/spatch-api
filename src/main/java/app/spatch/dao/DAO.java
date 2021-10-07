@@ -65,7 +65,7 @@ public class DAO<T extends DBObject<T>> {
   }
   public List<T> select(String constraints){
     String query = getSelectStatement();
-    query += constraints;
+    query += " " + constraints;
     return selectFromSQL(query);
   }
 
@@ -235,9 +235,15 @@ public class DAO<T extends DBObject<T>> {
       try{
         if(field.isAccessible()){
           obj = field.get(dbObject);
+          if(obj != null && obj.getClass().isEnum()){
+            obj = obj.toString();
+          }
         } else {
           field.setAccessible(true);
           obj = field.get(dbObject);
+          if(obj != null && obj.getClass().isEnum()){
+            obj = obj.toString();
+          }
           field.setAccessible(false);
         }
       } catch (IllegalAccessException e){
