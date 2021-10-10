@@ -41,12 +41,12 @@ public class Dispatch extends DBObject<Dispatch> {
   public Dispatch(Integer id, Integer placeId, Integer tripId, Long scheduledTime, Long startTime,
     Long endTime, Integer estTimeOnSite, Boolean isComplete, Priority priority){
     this.id = id;
-    this.placeId = placeId;
-    this.tripId = tripId;
-    this.scheduledTime = scheduledTime;
-    this.startTime = startTime;
-    this.endTime = endTime;
-    this.estTimeOnSite = estTimeOnSite;
+    this.placeId = placeId > 0 ? placeId : null;
+    this.tripId = tripId > 0 ? tripId : null;
+    this.scheduledTime = scheduledTime > 0 ? scheduledTime : null;
+    this.startTime = startTime > 0 ? startTime : null;
+    this.endTime = endTime > 0 ? endTime : null;
+    this.estTimeOnSite = estTimeOnSite > 0 ? estTimeOnSite : null;
     this.isComplete = isComplete;
     this.priority = priority;
   }
@@ -62,44 +62,70 @@ public class Dispatch extends DBObject<Dispatch> {
   public Integer getPlaceId() {
     return placeId;
   }
-  public void setPlaceId(
-      Integer placeId) {
-    this.placeId = placeId;
+  public void setPlaceId(Integer placeId) {
+    if(placeId == null){
+      this.placeId = null;
+      return;
+    }
+    this.placeId = placeId > 0 ? placeId : null;
   }
   public Integer getTripId() {
     return tripId;
   }
   public void setTripId(Integer tripId) {
-    this.tripId = tripId;
+    if(tripId == null){
+      this.tripId = null;
+      return;
+    }
+    this.tripId = tripId > 0 ? tripId : null;
   }
   public Long getScheduledTime() {
     return scheduledTime;
   }
   public void setScheduledTime(Long scheduledTime) {
-    this.scheduledTime = scheduledTime;
+    if(scheduledTime == null){
+      this.scheduledTime = null;
+      return;
+    }
+    this.scheduledTime = scheduledTime > 0 ? scheduledTime : null;
   }
   public Long getStartTime() {
     return startTime;
   }
   public void setStartTime(Long startTime) {
-    this.startTime = startTime;
+    if(startTime == null){
+      this.startTime = null;
+      return;
+    }
+    this.startTime = startTime > 0 ? startTime : null;
   }
   public Long getEndTime() {
     return endTime;
   }
   public void setEndTime(Long endTime) {
-    this.endTime = endTime;
+    if(endTime == null){
+      this.endTime = null;
+      return;
+    }
+    this.endTime = endTime > 0 ? endTime : null;
   }
   public Integer getEstTimeOnSite() {
     return estTimeOnSite;
   }
   public void setEstTimeOnSite(Integer estTimeOnSite) {
-    this.estTimeOnSite = estTimeOnSite;
+    if(estTimeOnSite == null){
+      this.estTimeOnSite = null;
+      return;
+    }
+    this.estTimeOnSite = estTimeOnSite > 0 ? estTimeOnSite : null;
   }
   public Boolean getIsComplete() {
     return isComplete;
   }
   public void setIsComplete(Boolean isComplete) {
+    if(isComplete == null){
+      isComplete = false;
+    }
     this.isComplete = isComplete;
   }
   public Priority getPriority() {
