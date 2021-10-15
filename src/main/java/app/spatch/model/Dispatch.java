@@ -18,7 +18,7 @@ public class Dispatch extends DBObject<Dispatch> {
   @Selectable @Insertable private Priority priority;
 
   public final static String BY_PLACE = "WHERE placeId = ?";
-  public final static String BY_TRIP = "WHERE tripId = ?";
+  public final static String BY_TRIP = "WHERE tripId = ? ORDER BY scheduledTime ASC";
   public final static String BY_COMPLETION = "WHERE isComplete = ?";
   public final static String BY_PRIORITY = "WHERE priority = ?";
   public final static String UNASSIGNED = "WHERE tripId IS NULL";

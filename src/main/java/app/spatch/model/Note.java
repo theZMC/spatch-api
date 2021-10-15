@@ -2,7 +2,6 @@ package app.spatch.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 
 import app.spatch.model.annotations.Insertable;
 import app.spatch.model.annotations.Selectable;
@@ -10,7 +9,7 @@ import app.spatch.model.annotations.Selectable;
 public class Note extends DBObject<Note>{
   @Selectable private Integer id;
   @Selectable @Insertable private Integer dispatchId;
-  @Selectable @Insertable private Timestamp time;
+  @Selectable @Insertable private Long time;
   @Selectable @Insertable private String message;
 
   public static final String BY_DISPATCH = "WHERE dispatchId = ?";
@@ -19,13 +18,13 @@ public class Note extends DBObject<Note>{
   public Note fromResultSet(ResultSet resultSet) throws SQLException {
     return new Note(
       resultSet.getInt("id"),
-      resultSet.getTimestamp("time"),
+      resultSet.getLong("time"),
       resultSet.getString("message"),
       resultSet.getInt("dispatchId")
     );
   }
 
-  public Note(Integer id, Timestamp time, String message, Integer dispatchId){
+  public Note(Integer id, Long time, String message, Integer dispatchId){
     this.id = id;
     this.time = time;
     this.message = message;
@@ -47,10 +46,10 @@ public class Note extends DBObject<Note>{
   public void setDispatchId(Integer dispatchId) {
     this.dispatchId = dispatchId;
   }
-  public Timestamp getTime() {
+  public Long getTime() {
     return time;
   }
-  public void setTime(Timestamp time) {
+  public void setTime(Long time) {
     this.time = time;
   }
   public String getMessage() {
